@@ -1,5 +1,7 @@
-// City name in scope for both pages
-// Bind text box to the scope and share data between views - create service
+// sign up to http://openweathermap.org/appid
+// Each time we will send request for some data we will need to append our id to url
+// For example:
+// http://api.openweathermap.org/data/2.5/forecast/daily?APPID=YOURAPIKEY
 
 'use strict';
 
@@ -25,11 +27,9 @@ weatherApp.service('cityService', function () {
 });
 
 // Controllers
-// Inject service
 weatherApp.controller('homeController', ['$scope', 'cityService', function ($scope, cityService) {
   $scope.city = cityService.city;
 
-  // bound value of scope city to watcher
   $scope.$watch('city', function () {
     cityService.city = $scope.city;
   })
