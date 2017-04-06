@@ -1,4 +1,5 @@
-// Input for city
+// City name in scope for both pages
+// Bind text box to the scope and share data between views - create service
 
 'use strict';
 
@@ -18,11 +19,22 @@ weatherApp.config(['$routeProvider', function ($routeProvider) {
     })
 }]);
 
+// Services
+weatherApp.service('cityService', function () {
+  this.city = 'Gdańsk, GD';
+});
+
 // Controllers
-weatherApp.controller('homeController', ['$scope', function ($scope) {
-  console.log('home controller');
+// Inject service
+weatherApp.controller('homeController', ['$scope', 'cityService', function ($scope, cityService) {
+  $scope.city = cityService.city;
+
+  // bound value of scope city to watcher
+  $scope.$watch('city', function () {
+    cityService.city = $scope.city;
+  })
 }]);
 
-weatherApp.controller('forecastController', ['$scope', function ($scope) {
-  console.log('forecast controller');
+weatherApp.controller('forecastController', ['$scope', 'cityService', function ($scope, cityService) {
+  $scope.city = cityService.city;
 }]);
