@@ -2,6 +2,8 @@
 // Each time we will send request for some data we will need to append our id to url
 // For example:
 // http://api.openweathermap.org/data/2.5/forecast/daily?APPID=YOURAPIKEY
+// Address for API
+// https://openweathermap.org/api
 
 'use strict';
 
