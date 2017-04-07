@@ -1,5 +1,3 @@
-// Create custom directive
-
 'use strict';
 
 // Module
@@ -16,8 +14,6 @@ weatherApp.config(['$routeProvider', function ($routeProvider) {
       templateUrl: '/views/forecast.html',
       controller: 'forecastController'
     })
-
-    // Create path which accepts days to dynamically get forecast for established number of days
     .when('/forecast/:days', {
       templateUrl: '/views/forecast.html',
       controller: 'forecastController'
@@ -42,8 +38,6 @@ weatherApp.controller('homeController', ['$scope', 'cityService', function ($sco
 weatherApp.controller('forecastController', ['$scope', '$resource', '$log', '$routeParams', 'cityService',
   function ($scope, $resource, $log, $routeParams, cityService) {
     $scope.city = cityService.city;
-
-    // Fix intiger to string so ngClass works
     $scope.days = $routeParams.days || '2';
 
     var weatherApi = $resource("http://api.openweathermap.org/data/2.5/forecast/daily");
