@@ -1,8 +1,14 @@
+<p>
+    <a href="#/">Back to search</a>
+</p>
+
 Forecast for {{ city }}
 <hr>
-Forecast for: <a href="#/forecast/2">2 days</a> |
-<a href="#/forecast/5">5 days</a> |
-<a href="#/forecast/7">7 days</a>
+<!--Ned to be string-->
+Days:
+<a href="#/forecast/2" ng-class="{'bg-primary': days === '2'}">2</a> |
+<a href="#/forecast/5" ng-class="{'bg-primary': days === '5'}">5</a> |
+<a href="#/forecast/7" ng-class="{'bg-primary': days === '7'}">7</a>
 
 <hr>
 <div ng-repeat="w in weatherResult.list">

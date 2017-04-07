@@ -37,18 +37,15 @@ weatherApp.controller('homeController', ['$scope', 'cityService', function ($sco
 }]);
 
 
-// Use $routeParams to pass number of days
 weatherApp.controller('forecastController', ['$scope', '$resource', '$log', '$routeParams', 'cityService',
   function ($scope, $resource, $log, $routeParams, cityService) {
     $scope.city = cityService.city;
 
-    // Let there be some default value
-    $scope.days = $routeParams.days || 2;
+    // Fix intiger to string so ngClass works
+    $scope.days = $routeParams.days || '2';
 
     var weatherApi = $resource("http://api.openweathermap.org/data/2.5/forecast/daily");
 
-    // type url to prove it works with default or with parameter
-    // http://localhost:8080/#/forecast/5
     $scope.weatherResult = weatherApi.get({
       appid: 'b1caa2dca3aa00378b971211de73bdbf',
       q: $scope.city,
