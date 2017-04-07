@@ -43,10 +43,16 @@ weatherApp.controller('forecastController', ['$scope', '$resource', '$log', 'cit
     var weatherApi = $resource("http://api.openweathermap.org/data/2.5/forecast/daily");
 
     $scope.weatherResult = weatherApi.get({
+      appid: 'b1caa2dca3aa00378b971211de73bdbf',
       q: $scope.city,
-      cnt: 2,
-      appid: 'b1caa2dca3aa00378b971211de73bdbf'
+      units: 'metrics',
+      cnt: 2
     }, function(res) {
       return res;
     });
+
+    $scope.convertToCelsius = function (kelvinTemperature) {
+      var temp =  kelvinTemperature - 273.15;
+      return temp.toFixed(1);
+    };
   }]);
