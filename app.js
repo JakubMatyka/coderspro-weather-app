@@ -1,9 +1,3 @@
-// Now we are gonna get data from server through ngResource.
-// $resource service wraps up $http service and depends on it as well as on $q, $log, $timeout
-// A factory which creates a resource object that lets you interact with
-// RESTful (Representational State Transfer) server-side data sources.
-// https://docs.angularjs.org/api/ngResource/service/$resource
-
 'use strict';
 
 // Module
@@ -17,6 +11,12 @@ weatherApp.config(['$routeProvider', function ($routeProvider) {
       controller: 'homeController'
     })
     .when('/forecast', {
+      templateUrl: '/views/forecast.html',
+      controller: 'forecastController'
+    })
+
+    // Create path which accepts days to dynamically get forecast for established number of days
+    .when('/forecast/:days', {
       templateUrl: '/views/forecast.html',
       controller: 'forecastController'
     })
@@ -36,17 +36,24 @@ weatherApp.controller('homeController', ['$scope', 'cityService', function ($sco
   })
 }]);
 
-weatherApp.controller('forecastController', ['$scope', '$resource', '$log', 'cityService',
-  function ($scope, $resource, $log, cityService) {
+
+// Use $routeParams to pass number of days
+weatherApp.controller('forecastController', ['$scope', '$resource', '$log', '$routeParams', 'cityService',
+  function ($scope, $resource, $log, $routeParams, cityService) {
     $scope.city = cityService.city;
+
+    // Let there be some default value
+    $scope.days = $routeParams.days || 2;
 
     var weatherApi = $resource("http://api.openweathermap.org/data/2.5/forecast/daily");
 
+    // type url to prove it works with default or with parameter
+    // http://localhost:8080/#/forecast/5
     $scope.weatherResult = weatherApi.get({
       appid: 'b1caa2dca3aa00378b971211de73bdbf',
       q: $scope.city,
       units: 'metrics',
-      cnt: 2
+      cnt: $scope.days
     }, function(res) {
       return res;
     });
