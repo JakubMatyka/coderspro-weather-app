@@ -1,6 +1,6 @@
 'use strict';
 
-weatherApp.controller('homeController', ['$scope', 'cityService', function ($scope, cityService) {
+angular.module('weatherApp').controller('homeController', ['$scope', 'cityService', function ($scope, cityService) {
   $scope.city = cityService.city;
 
   $scope.$watch('city', function () {
@@ -9,7 +9,7 @@ weatherApp.controller('homeController', ['$scope', 'cityService', function ($sco
 }]);
 
 
-weatherApp.controller('forecastController', ['$scope', '$resource', '$log', '$routeParams', 'cityService',
+angular.module('weatherApp').controller('forecastController', ['$scope', '$resource', '$log', '$routeParams', 'cityService',
   function ($scope, $resource, $log, $routeParams, cityService) {
     $scope.city = cityService.city;
     $scope.days = $routeParams.days || '2';

@@ -1,6 +1,6 @@
 'use strict';
 
-weatherApp.directive('weatherReport', function () {
+angular.module('weatherApp').directive('weatherReport', function () {
   // Return directive object
   return {
     restrict: 'E',
