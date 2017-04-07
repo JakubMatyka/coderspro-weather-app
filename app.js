@@ -1,9 +1,7 @@
 // sign up to http://openweathermap.org/appid
 // Each time we will send request for some data we will need to append our id to url
-// For example:
-// http://api.openweathermap.org/data/2.5/forecast/daily?APPID=YOURAPIKEY
-// Address for API for forecast for next 5 days
-// https://openweathermap.org/forecast5
+// For example, weather for Gdansk for next 2 days:
+// http://api.openweathermap.org/data/2.5/forecast/daily?q=Gdansk&cnt=2&appid=b1caa2dca3aa00378b971211de73bdbf
 
 'use strict';
 
