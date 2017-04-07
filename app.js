@@ -55,4 +55,8 @@ weatherApp.controller('forecastController', ['$scope', '$resource', '$log', 'cit
       var temp =  kelvinTemperature - 273.15;
       return temp.toFixed(1);
     };
+
+    $scope.convertToDate = function (date) {
+      return new Date(date * 1000);
+    }
   }]);
