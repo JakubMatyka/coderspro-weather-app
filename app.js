@@ -46,7 +46,7 @@ weatherApp.controller('forecastController', ['$scope', '$resource', '$log', 'cit
       q: $scope.city,
       cnt: 2,
       appid: 'b1caa2dca3aa00378b971211de73bdbf'
-    }).$promise.then(function (data) {
-      $log.info(data);
+    }, function(res) {
+      return res;
     });
   }]);
