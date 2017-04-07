@@ -36,23 +36,9 @@ weatherApp.controller('homeController', ['$scope', 'cityService', function ($sco
   })
 }]);
 
-weatherApp.controller('forecastController', ['$scope', '$resource', 'cityService',
-  function ($scope, $resource, cityService) {
+weatherApp.controller('forecastController', ['$scope', '$resource', '$log', 'cityService',
+  function ($scope, $resource, $log, cityService) {
     $scope.city = cityService.city;
-
-    // http://api.openweathermap.org/data/2.5/forecast/daily?q=Gdansk&cnt=2&appid=b1caa2dca3aa00378b971211de73bdbf
-
-    // We need to use JSONP (JSON with padding or cross-domain AJAX request) method as the source of data is in other domain
-    // Normally AJAX request uses XMLHttpRequest but this let us fetch data in the domain scope. To fetch data from other
-    // domain we need to use JSONP
-
-    //var weatherApi = $resource("http://api.openweathermap.org/data/2.5/forecast/daily", {
-    //  callback: "JSON_CALLBACK"
-    //}, {
-    //  get: {
-    //    method: "JSONP"
-    //  }
-    //});
 
     var weatherApi = $resource("http://api.openweathermap.org/data/2.5/forecast/daily");
 
@@ -61,6 +47,6 @@ weatherApp.controller('forecastController', ['$scope', '$resource', 'cityService
       cnt: 2,
       appid: 'b1caa2dca3aa00378b971211de73bdbf'
     }).$promise.then(function (data) {
-      console.log(data);
+      $log.info(data);
     });
   }]);
