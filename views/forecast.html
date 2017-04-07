@@ -1,24 +1,20 @@
 <p>
     <a href="#/">Back to search</a>
 </p>
-<!--As the city name is loaded only once we can use ngBind directive which works similar to the interpolation.-->
-<!--From time to time when using interpolation {{}} user can see something like "raw" code {{city}} as the Angular has to go-->
-<!--over DOM and bind all of those. ngBind operates as an element attribute so there is nothing to show.-->
-<!--The other more important thing is that Angular will continuously re-evaluate the expression on each and every turn-->
-<!--of the digest cycle, and re-render the displayed string, even if it has not changed.-->
-<!--This is opposed to ng-bind, where Angular places a regular watcher, and will render only when a value change has happened.-->
-<!--It can be twice as fast than normal interpolation-->
-
 Forecast for <span ng-bind="city"></span>
 <hr>
-<!--Ned to be string-->
 Days:
 <a href="#/forecast/2" ng-class="{'bg-primary': days === '2'}">2</a> |
 <a href="#/forecast/5" ng-class="{'bg-primary': days === '5'}">5</a> |
 <a href="#/forecast/7" ng-class="{'bg-primary': days === '7'}">7</a>
 
 <hr>
-<div ng-repeat="w in weatherResult.list">
+<!--Behind the scenes ngRepeat adds a $$hashKey property to each task to keep track of it. If you replace the original tasks -->
+<!--with new tasks objects from the server, even if those are in fact totally identical to your original tasks, they won’t -->
+<!--have the $$hashKey property and so ngRepeat won’t know they represent the same elements.-->
+
+<!--Track by allows to define own key for ngRepeat to identify objects by.-->
+<div ng-repeat="w in weatherResult.list track by w.dt">
     <div class="row">
         <div class="col-md-12">
             <weather-report
