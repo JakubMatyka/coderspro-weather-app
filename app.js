@@ -1,3 +1,5 @@
+// Create custom directive
+
 'use strict';
 
 // Module
@@ -64,3 +66,26 @@ weatherApp.controller('forecastController', ['$scope', '$resource', '$log', '$ro
       return new Date(date * 1000);
     }
   }]);
+
+// Directives
+weatherApp.directive('weatherReport', function () {
+  // Return directive object
+  return {
+    // Define if we want to use it as an element or attribute
+    restrict: 'E',
+    // Define which template ot should use
+    templateUrl: 'directives/weatherReport.html',
+    // Say if in DOM directive should replace my directive or show in bracets like <directive></directive>
+    replace: true,
+    // Decide if you want to isolate the scope - optional but be careful if you don`t
+    // As we pass some data as an object "w" through ng-repeat
+    scope: {
+      weatherDay: "=",
+      // For functions always use "&" - expression binding
+      convertToStandard: '&',
+      convertToDate: "&",
+      // One way binding
+      dateFormat: "<"
+    }
+  }
+});
