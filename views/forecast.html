@@ -9,12 +9,8 @@ Days:
 <a href="#/forecast/7" ng-class="{'bg-primary': days === '7'}">7</a>
 
 <hr>
-<!--Behind the scenes ngRepeat adds a $$hashKey property to each task to keep track of it. If you replace the original tasks -->
-<!--with new tasks objects from the server, even if those are in fact totally identical to your original tasks, they won’t -->
-<!--have the $$hashKey property and so ngRepeat won’t know they represent the same elements.-->
-
-<!--Track by allows to define own key for ngRepeat to identify objects by.-->
-<div ng-repeat="w in weatherResult.list track by w.dt">
+<!--Make it even better introducing one way data binding-->
+<div ng-repeat="w in ::weatherResult.list track by w.dt">
     <div class="row">
         <div class="col-md-12">
             <weather-report
