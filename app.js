@@ -1,7 +1,8 @@
-// sign up to http://openweathermap.org/appid
-// Each time we will send request for some data we will need to append our id to url
-// For example, weather for Gdansk for next 2 days:
-// http://api.openweathermap.org/data/2.5/forecast/daily?q=Gdansk&cnt=2&appid=b1caa2dca3aa00378b971211de73bdbf
+// Now we are gonna get data from server through ngResource.
+// $resource service wraps up $http service and depends on it as well as on $q, $log, $timeout
+// A factory which creates a resource object that lets you interact with
+// RESTful (Representational State Transfer) server-side data sources.
+// https://docs.angularjs.org/api/ngResource/service/$resource
 
 'use strict';
 
@@ -23,7 +24,7 @@ weatherApp.config(['$routeProvider', function ($routeProvider) {
 
 // Services
 weatherApp.service('cityService', function () {
-  this.city = 'Gdańsk, GD';
+  this.city = 'Gdansk';
 });
 
 // Controllers
@@ -35,6 +36,31 @@ weatherApp.controller('homeController', ['$scope', 'cityService', function ($sco
   })
 }]);
 
-weatherApp.controller('forecastController', ['$scope', 'cityService', function ($scope, cityService) {
-  $scope.city = cityService.city;
-}]);
+weatherApp.controller('forecastController', ['$scope', '$resource', 'cityService',
+  function ($scope, $resource, cityService) {
+    $scope.city = cityService.city;
+
+    // http://api.openweathermap.org/data/2.5/forecast/daily?q=Gdansk&cnt=2&appid=b1caa2dca3aa00378b971211de73bdbf
+
+    // We need to use JSONP (JSON with padding or cross-domain AJAX request) method as the source of data is in other domain
+    // Normally AJAX request uses XMLHttpRequest but this let us fetch data in the domain scope. To fetch data from other
+    // domain we need to use JSONP
+
+    //var weatherApi = $resource("http://api.openweathermap.org/data/2.5/forecast/daily", {
+    //  callback: "JSON_CALLBACK"
+    //}, {
+    //  get: {
+    //    method: "JSONP"
+    //  }
+    //});
+
+    var weatherApi = $resource("http://api.openweathermap.org/data/2.5/forecast/daily");
+
+    $scope.weatherResult = weatherApi.get({
+      q: $scope.city,
+      cnt: 2,
+      appid: 'b1caa2dca3aa00378b971211de73bdbf'
+    }).$promise.then(function (data) {
+      console.log(data);
+    });
+  }]);
